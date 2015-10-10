@@ -107,6 +107,8 @@ mkfs.ext4 /dev/vg0/lv2
 
 Mount them as regular partition and done!
 
+> Observe LVM workflow here : https://youtu.be/Nn6_iq5ar4s
+
 ####Advantages of LVM :
 
 * LVM gives you more **flexibility** than just using normal hard drive partitions:
