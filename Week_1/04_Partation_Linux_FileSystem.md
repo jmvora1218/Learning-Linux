@@ -54,30 +54,53 @@ After making partitions on the same (Logical Partitions) you can follow the same
 
 ##LVM : Logical Volume Manager
 
-  Once then you have LVM say,<br>
-  /dev/sda5 <br>
-  /dev/sda6 <br>
+Once then you have two partition of type `Linux LVM` say,
+* /dev/sda5
+* /dev/sda6
 
-* use 'pvcreate /dev/sda5' => will create a **physical Volume**.
-* use 'pvs' -> reports information about physical Volumes.
-* use 'pvdisplay' -> display attributes of a physical volume.
+#####pvcreate
+Create a Physical Volume.
 
-*  Now use **vgcreate** command to create a volume group.
-  ```
-    vgcreate vg0 /dev/sda5 /dev/sda6
+Usage :
+```sh
+pvcreate /dev/sda5 #=> will create a physical Volume.
+pvcreate /dev/sda6
 ```
-   - Now 'vgs' to display the volume groups info.
+#####pvs
+Show Physical Volumes information
 
-* now create a **logical volume**
-    ```
-    lvcreate -L 1G -n lv1 vg0
+#####pvdisplay
+Display attributes of a physical volume.
+
+#####vgcreate
+create a Volume Group
+
+```sh
+vgcreate vg0 /dev/sda5 /dev/sda6
+#vg0 = name of volume group
+#following vg0 are members of that volume group
 ```
-    Now we can see their paths as :<br>
-    /dev/vg0/lv1 <br>
-    /dev/vg0/lv2
+#####vgs
+Display the volume groups info.
 
-    Now we can make fs : <br>
-    mkfs.ext4 /dev/vg0/lv1 <br>
-    mkfs.ext4 /dev/vg0/lv2
+#####lvcreate
+Create a logical volume in a given volume group
+```sh
+lvcreate -L 1G -n lv1 vg0
+#-L = length of volume
+#-n : name of logical volume
+#followed by the group where it should belong
+```
+After creating the logical volumes,
 
-  Mount them as regular partition and done!
+Now we can see their block files in `/dev` :<br>
+* `/dev/vg0/lv1`
+* `/dev/vg0/lv2`
+
+We can Now we can make fs :
+```sh
+mkfs.ext4 /dev/vg0/lv1
+mkfs.ext4 /dev/vg0/lv2
+```
+
+Mount them as regular partition and done!
