@@ -52,6 +52,8 @@ Logical Partition needs to be created on the Extended partition to make it usabl
 
 After making partitions on the same (Logical Partitions) you can follow the same steps to continue with making FS and using it.
 
+> Observe this simple work flow here : https://youtu.be/f_V5LDYaJU8
+
 ##LVM : Logical Volume Manager
 
 Once then you have two partition of type `Linux LVM` say,
