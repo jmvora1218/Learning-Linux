@@ -106,3 +106,15 @@ mkfs.ext4 /dev/vg0/lv2
 ```
 
 Mount them as regular partition and done!
+
+####Advantages of LVM :
+
+* LVM gives you more **flexibility** than just using normal hard drive partitions:
+* Use any **number of disks as one big disk.**
+* Have logical volumes **stretched over several disks.**
+* Create small logical volumes and resize them **"dynamically"** as they get filled up.
+* Resize logical volumes **regardless of their order** on disk. It does not depend on the position of the LV within VG, there is no need to ensure surrounding available space.
+* Resize/create/delete logical and physical volumes **online**. File systems on them still need to be resized, but some (such as ext4) support online resizing.
+* Online/live **migration** of LV being used by services to different disks without having to restart services.
+* **Snapshots** allow you to backup a frozen copy of the file system, while keeping service downtime to a minimum.
+* Support for various device-mapper targets, including transparent filesystem **encryption and caching** of frequently used data.
