@@ -1,33 +1,28 @@
 # Partitioning Linux FileSystem
 
 
-* **fdisk command** <br>
-    - fdisk /dev/sda -> select the drive.
-    ```
-      m=help
-      n = new Partition
-      p = display partition table
-      --THere can be only 4 primary partition but any number of logical partition
-      w = write quit
-      d = delete partition
-      ```
+##fdisk Command
+#####fdisk
+/dev/sda -> select the secondary storage drive.
 
-  - partprobe :- inform the OS of partition table changes.<br>
-  then use.
-
-    ```
-    mkswap
-    mkfs.ext2
-    mkfs.ext3
-    mkfs -t ext4 /dev/sda3
+```sh
+m = help
+n = new Partition
+p = display partition table
+w = write quit
+d = delete partition
 ```
+Note : Th ere can be only 4 primary partition but any number of logical partition
 
-  If partition is mounted then use :
+#####partprobe
+ inform the OS of partition table changes then use.
 
-    ```
-    umount /dev/sda3
-    Details in /etc/fstab
-    ```
+```sh
+mkswap #partition type should be LINUX SWAP to use this
+mkfs.ext3 #makes ext3 filesystem
+mkfs.ext4 #makes ext4 file system
+mkfs -t ext4 /dev/sda3  #-t as a type flag
+```
 
   Now once after creating a partition we can mount by : mount command <br>
   But the changes are pertaining to only the reboot.
@@ -35,26 +30,29 @@
     - To make the chages persist accross reboot we have to make a entry in /etc/fstab
 
     - The fields in fstab are as :
-  ```  
-    <filesystem> <mount-point> <type> <option> <dump> <pass>
+```sh  
+    <filesystem>    <mount-point> <type> <option> <dump> <pass>
   ex/dev/sda3     /newpartition ext4  defaults  0       0
-  dump = no back
-  val=1 take back up everyday
-  2 = backup every alternate day
-  pass = 1 check fs in begining (first fs to be checked)
-  2 check after 1
+  #dump = no back => val=1 take back up everyday , 2 = backup every alternate day
+  # pass = 1 check fs in begining (first fs to be checked), 2 check after 1
 ```  
   after making changes,
-    - mount -a : mount all entries in etc/fstab file.  
-    - mount    : cmd to display what is mounted.
+```sh  
+mount -a #mount all entries in etc/fstab file.  
+mount    #cmd to display what is mounted.
+```
 
-
-* **Extended Partition :** logical Partition needs to be created on the Extended partition to make it usable.
+#####Extended Partition
+Logical Partition needs to be created on the Extended partition to make it usable.
 
   - Logical Volume Arrangement in Linux : LVM
   - All the partitions in the LVM should be of type "Linux LVM"
   - The hex code for Linux LVM in fdisk is 8e
   - fdisk t = change type
+
+After making partitions on the same (Logical Partitions) you can follow the same steps to continue with making FS and using it.
+
+##LVM : Logical Volume Manager
 
   Once then you have LVM say,<br>
   /dev/sda5 <br>
